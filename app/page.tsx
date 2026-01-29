@@ -7,7 +7,8 @@ type Project = {
   name: string;
 };
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL!;
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 export default function Page() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -15,7 +16,6 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  // Projekte laden (NUR Backend)
   useEffect(() => {
     fetch(`${API_URL}/projects`)
       .then(res => {
@@ -26,7 +26,6 @@ export default function Page() {
       .catch(() => setMessage('❌ Fehler beim Laden'));
   }, []);
 
-  // Projekt anlegen
   async function createProject(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -41,10 +40,10 @@ export default function Page() {
 
       if (!res.ok) throw new Error();
 
-      const newProject: Project = await res.json();
+      const newProject = await res.json();
       setProjects(prev => [...prev, newProject]);
       setName('');
-      setMessage('✅ Projekt erfolgreich erstellt');
+      setMessage('✅ Projekt erstellt');
     } catch {
       setMessage('❌ Fehler beim Erstellen');
     } finally {
