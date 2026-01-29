@@ -7,16 +7,21 @@ type Project = {
   name: string;
 };
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL!;
+
 export default function Page() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  // Projekte laden
+  // Projekte laden (NUR Backend)
   useEffect(() => {
-    fetch('http://localhost:3001/projects')
-      .then(res => res.json())
+    fetch(`${API_URL}/projects`)
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
       .then(setProjects)
       .catch(() => setMessage('❌ Fehler beim Laden'));
   }, []);
@@ -28,7 +33,7 @@ export default function Page() {
     setMessage('');
 
     try {
-      const res = await fetch('http://localhost:3000/projects', {
+      const res = await fetch(`${API_URL}/projects`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name }),
@@ -36,8 +41,8 @@ export default function Page() {
 
       if (!res.ok) throw new Error();
 
-      const newProject = await res.json();
-      setProjects([...projects, newProject]);
+      const newProject: Project = await res.json();
+      setProjects(prev => [...prev, newProject]);
       setName('');
       setMessage('✅ Projekt erfolgreich erstellt');
     } catch {
@@ -75,4 +80,5 @@ export default function Page() {
     </main>
   );
 }
+
 
