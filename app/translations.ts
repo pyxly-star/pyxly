@@ -1,0 +1,45 @@
+export const translations = {
+  de: {
+    heroTitle: "Gestalte deine Fotos",
+    heroSubtitle:
+      "Erstelle Postkarten, Bilder & Designs mit Text, Emojis, Filtern und kreativen Layouts.",
+    cta: "Jetzt gestalten",
+    editor: "Editor",
+    upload: "Bild auswählen",
+    emojisSt: "Emojis & Sticker",
+    filters: "Filter & Farben",
+    texts: "Texte & Layouts",
+    postcards: "Postkarten gestalten",
+    download: "Download & Druck",
+    editorTitle: "Editor",
+    save: "Speichern",
+    text: "Text",
+    deleteText: "Text löschen",
+    emojis: "Emojis",
+    characters: "Schrift",
+    size: "Schriftgröße",
+    colour: "Farbe"
+  },
+  en: {
+    heroTitle: "Design your photos",
+    heroSubtitle:
+      "Create postcards, images & designs with text, emojis, filters and creative layouts.",
+    cta: "Start creating",
+    upload: "Upload Image",
+    emojisSt: "Emojis & Stickers",
+    filters: "Filters & Colors",
+    texts: "Texts & Layouts",
+    postcards: "Design postcards",
+    download: "Download & Print",
+    editor: "Editor",
+    selectImage: "Select image",
+    editorTitle: "Editor",
+    save: "Save",
+    text: "Text",
+    deleteText: "Delete text",
+    emojis: "Emojis",
+    characters: "Characters",
+    size: "Size",
+    colour: "Colour"
+  },
+};
