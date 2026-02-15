@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
 const BACKEND = 'http://localhost:3001/projects'
 
 export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params
+  const { id } = await context.params
   const body = await request.json()
 
   const res = await fetch(`${BACKEND}/${id}`, {
@@ -20,10 +21,10 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params
+  const { id } = await context.params
 
   await fetch(`${BACKEND}/${id}`, {
     method: 'DELETE',
