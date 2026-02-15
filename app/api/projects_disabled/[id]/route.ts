@@ -4,15 +4,14 @@ const BACKEND = 'http://localhost:3001/projects'
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   const body = await request.json()
 
-  const res = await fetch(`${BACKEND}/${params.id}`, {
+  const res = await fetch(`${BACKEND}/${id}`, {
     method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   })
 
@@ -22,9 +21,11 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  await fetch(`${BACKEND}/${params.id}`, {
+  const { id } = await params
+
+  await fetch(`${BACKEND}/${id}`, {
     method: 'DELETE',
   })
 
