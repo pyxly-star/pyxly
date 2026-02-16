@@ -7,35 +7,36 @@ export default function HomePage() {
   const{ lang, setLang, t } = useLanguage();
   
   const images = [
-    "/images/1.jpg",
+   
     "/images/2.jpg",
-    "/images/3.jpg",
+    "/images/11.jpg",
     "/images/4.jpg",
     "/images/5.jpg",
     "/images/6.jpg",
+    "/images/22.jpg",
     "/images/7.jpg",
     "/images/8.jpg",
-    "/images/9.jpg",
-    "/images/10.jpg",
-    "/images/11.jpg",
+    "/images/3.jpg",
     "/images/12.jpg",
-    "/images/13.jpg",
-    "/images/14.jpg",
     "/images/15.jpg",
     "/images/16.jpg",
     "/images/17.jpg",
     "/images/18.jpg",
-    "/images/19.jpg",
     "/images/20.jpg",
+    "/images/14.jpg",
     "/images/21.jpg",
-    "/images/22.jpg",
+    "/images/13.jpg",
     "/images/23.jpg",
+    "/images/9.jpg",
+     "/images/1.jpg",
     "/images/24.jpg",
     "/images/25.jpg",
     "/images/26.jpg",
     "/images/27.jpg",
     "/images/28.jpg",
     "/images/29.jpg",
+    "/images/19.jpg",
+    "/images/10.jpg",
     "/images/30.jpg",
     "/images/31.jpg",
     "/images/32.jpg",
@@ -51,9 +52,12 @@ export default function HomePage() {
     <main style={{ textAlign: "center",
         minHeight: "100vh",
         padding: "20px 20px",
+        maxWidth: "1200px",
+        margin: "0 auto",
         background:
           "linear-gradient(135deg, #ffecd2 0%, #fcb69f 25%, #a1c4fd 60%, #c2e9fb 100%)",
         fontFamily: "system-ui, -apple-system, BlinkMacSystemFont",
+        boxSizing: "border-box",
       }}
    > 
       {/* HERO */}
@@ -65,6 +69,8 @@ export default function HomePage() {
         height={150}
         priority
         style={{marginBottom: 10,
+        maxWidth: "40vw",
+        height: "auto",
         display: "block",
         marginLeft: "auto",
         marginRight: "auto"
@@ -99,9 +105,9 @@ export default function HomePage() {
       <section
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
           gap: 20,
-          maxWidth: 1100,
+          maxWidth: 1200,
           margin: "0 auto",
         }}
       >
@@ -135,6 +141,8 @@ export default function HomePage() {
               alt="Foto Collage"
               style={{
                 width: "100%",
+                maxWidth: 300,
+                margin: "0 auto",
                 height: "100%",
                 objectFit: "cover",
                 display: "block",
@@ -156,10 +164,10 @@ export default function HomePage() {
         style={{
           marginTop: 90,
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)", // 🔥 immer 3 pro Reihe
+          gridTemplateColumns: "repeat(auto-fit, minmax (160px, 1fr))", // 🔥 immer 3 pro Reihe
           gap: 32,
           maxWidth: 1200,
-          marginInline: "auto",
+          marginInline: "0 auto",
           textAlign: "center",
         }}
       >

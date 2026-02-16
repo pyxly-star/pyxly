@@ -4,10 +4,18 @@ import { ThemeProvider } from "./theme-context";
 import { LanguageProvider } from "./language-context";
 import  {useLanguage} from "./language-context";
 
-export const metadata = {
+import type { Metadata, Viewport } from "next";
+
+export const metadata: Metadata = {
   title: "Pyxly",
   description: "Projektverwaltung",
 };
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 
 export default function RootLayout({
   children,
@@ -16,13 +24,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de">
-      <body>
-        <LanguageProvider>
-          <ThemeProvider>
-             {children}
-          </ThemeProvider>
-        </LanguageProvider>
-      </body>
-    </html>
+  <body className="min-h-screen w-full overflow-x-hidden">
+    <LanguageProvider>
+      <ThemeProvider>
+        {children}
+      </ThemeProvider>
+    </LanguageProvider>
+  </body>
+</html>
   );
 }

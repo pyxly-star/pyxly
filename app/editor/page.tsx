@@ -147,6 +147,19 @@ export default function Editor() {
   const active = layers.find(l => l.id === activeId);
   const rotation = useRef(false);
   const rotationStart = useRef({angle: 0, start: 0});
+  
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 900)
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   /* =========================================================
      EFFECTS
@@ -401,38 +414,82 @@ const deleteActiveText = () => {
       }}
     >
       {/* HEADER */}
-      <div style={{ display: 'flex', justifyContent: 'space-between',alignItems:'center', padding: '5px 20px',borderRadius:16, marginBottom: 10, background: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 25%, #a1c4fd 60%, #c2e9fb 100%)" }}>
-        <button style={btnSmall} onClick={() => router.push('/')}>🏠   Home</button>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "8px 8px", // weniger Innenabstand
+          borderRadius: 1,
+          marginBottom: 10,
+          background:
+            "linear-gradient(135deg, #ffecd2 0%, #fcb69f 25%, #a1c4fd 60%)",
+        }}
+      >
+        {/* LINKS */}
         <button
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 14,
-        fontSize: 38,
-        color: '#f136eb',
-        fontWeight: 700,
-        background: 'transparent',
-        border: 'none',
-        cursor: 'default'
-      }}
-    >
-      <span>PYXLY</span>
+          style={btnHeaderSmall}
+          onClick={() => router.push("/")}
+        >
+          🏠
+        </button>
 
-      {/* 🆕 LOGO IN DER MITTE */}
-      <img
-        src="/logo.png"
-        alt="Logo"
-        width={150}
-        height={150}
-        style={{background:'"linear-gradient(135deg, #ffecd2 0%, #fcb69f 25%, #a1c4fd 60%, #c2e9fb 100%)"'}}
-      
-      /><span>{t.editorTitle}</span>
-    </button>
+        {/* MITTE */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 6, // enger zusammen
+          }}
+        >
+          <span
+            style={{
+              fontWeight: 700,
+              fontSize: 18,
+              color: "#f136eb",
+            }}
+          >
+            PYXLY
+          </span>
 
-        <button style={btnSmall} onClick={saveImage}>💾 {t.save} </button>
+          <img
+            src="/logo.png"
+            alt="Logo"
+            width={80}
+            height={80}
+          />
 
+          <span
+            style={{
+              fontWeight: 600,
+              fontSize: 16,
+              color: "#f136eb",
+            }}
+          >
+            {t.editorTitle}
+          </span>
+        </div>
+
+        {/* RECHTS */}
+        <button
+          style={btnHeaderSmall}
+          onClick={saveImage}
+        >
+          💾
+        </button>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: 5 }}>
+
+
+      <div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: isMobile ? '1fr' : '320px 1fr',
+    gap: 30,
+    alignItems: 'start'
+  }}
+>
+        
+        
         {/* SIDEBAR */}
         <aside style={panel}>
           <button style={btnSmall} onClick={addText}>➕ {t.text}</button>
@@ -590,13 +647,17 @@ const deleteActiveText = () => {
 
           {image && (
             <div
-              style={{
-                position: 'relative',
-                width: frameSize.w,
-                height: frameSize.h,
-                margin: '16px auto',
-              }}
-            >
+          style={{
+            position: 'relative',
+            width: '100%',
+            maxWidth: 400,   // maximale Handybreite
+            aspectRatio: `${frameSize.w} / ${frameSize.h}`,
+            margin: '20px auto',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
               <img
                 src={image}
                 alt=""
@@ -676,6 +737,7 @@ const panel: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   gap: 10,
+  alignItems: 'flex-start',
   color:'#111827'   //die Farbe der Schrift in dem Dropdown
 };
 
@@ -685,16 +747,22 @@ const preview: React.CSSProperties = {
   padding: 16,
 };
 
-const btnSmall: React.CSSProperties = {
-  height: 42,
-  padding: '0 14px',
-  borderRadius: 10,
+const btnSmall = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',   // 👈 Text zentriert
+  gap: 8,
+  padding: '8px 16px',                // 👈 gleiche Höhe
+  minWidth: 220,              // 👈 feste Mindestbreite
+  borderRadius: 14,
   border: 'none',
-  background: '#6366f1',
-  color: '#fff',
-  fontWeight: 600,
   cursor: 'pointer',
-};
+  fontWeight: 600,
+  fontSize: 15,
+  color: '#fff',
+  background: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 25%, #a1c4fd 60%, #c2e9fb 100%)'
+}
+;
 
 const emojiDropdown: React.CSSProperties = {
   position: 'absolute',
@@ -722,5 +790,25 @@ const inputStyle: React.CSSProperties = {
   color: '#030a19',          // ✅ TEXTFARBE (dunkel)
   background: '#ffffff',     // ✅ Kontrast zum Panel
   outline: 'none',
+};
+
+const btnHeaderSmall: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: 6,
+
+  padding: '6px 12px',   // 👈 klein
+  fontSize: 14,          // 👈 kleiner Text
+  height: 36,            // 👈 feste kleine Höhe
+  borderRadius: 5,
+
+  border: 'none',
+  cursor: 'pointer',
+  fontWeight: 600,
+  color: '#fff',
+
+  background:
+    'linear-gradient(135deg, #a1c4fd 60%)',
 };
 
